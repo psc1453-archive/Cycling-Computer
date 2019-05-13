@@ -81,9 +81,10 @@ int LCD::display(const char *output, int mode)
     //write
     int len = strlen(output);
     RS = 1;
+    bool alreadyRowSecond = false;
     for (int i = 0; i < len; ++i)
     {
-        if (i == 16)
+        if (i == 16 && !alreadyRowSecond)
         {
             if (mode)
             {
@@ -92,6 +93,8 @@ int LCD::display(const char *output, int mode)
                 pulse_E();
                 DATA = 0x0;
                 pulse_E();
+
+                alreadyRowSecond = true;
 
                 RS = 1;
             }
@@ -108,6 +111,7 @@ int LCD::display(const char *output, int mode)
                 DATA = output[i];
                 pulse_E();
 
+                alreadyRowSecond = true;
             }
         else
         {
