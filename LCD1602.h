@@ -14,6 +14,7 @@ private:
     DigitalOut RW;
     DigitalOut E;
     BusOut DATA;
+    char buffer[32];
     void pulse_E();
 
 public:
@@ -27,7 +28,6 @@ public:
     template<typename...T>
     int printf(const char *fmt,T...args)
     {
-        char buffer[32];
         sprintf(buffer, fmt,args...);
         return display(buffer);
     }
